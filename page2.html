@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة طلب ونش - MECHANICO</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>مع MECHANICO مش هتعطل تانى</h1>
+    </header>
+    <main>
+        <section class="tow-service">
+            <h2>طلب خدمة الونش</h2>
+            <form id="tow-form">
+                <label for="mobile">رقم الموبيل:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+
+                <label for="national-id">الرقم القومى:</label>
+                <input type="text" id="national-id" name="national-id" required>
+
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="location">الموقع:</label>
+                <input type="text" id="location" name="location" placeholder="أدخل موقعك" required>
+
+                <label for="photo">الصورة الشخصية:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <button type="submit">إرسال الطلب</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        document.getElementById('get-location').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const locationInput = document.getElementById('location');
+                    locationInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
+                }, function(error) {
+                    alert('فشل في الحصول على الموقع: ' + error.message);
+                });
+            } else {
+                alert('المتصفح لا يدعم الحصول على الموقع.');
+            }
+        });
+
+        document.getElementById('tow-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // جمع البيانات
+            const mobile = document.getElementById('mobile').value;
+            const nationalId = document.getElementById('national-id').value;
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            const photo = document.getElementById('photo').files[0];
+
+            // إعداد رسالة الطلب
+            let message = `طلب خدمة ونش:%0Aالاسم: ${name}%0Aرقم الموبيل: ${mobile}%0Aالرقم القومى: ${nationalId}%0Aالموقع: ${location}%0A`;
+
+            // إذا كان هناك صورة، يمكن إضافة ملاحظة
+            if (photo) {
+                message += `الصورة الشخصية: مرفقة%0A`;
+            }
+
+            // رقم الهاتف
+            const phone = "201283624733";
+
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+            // فتح واتساب
+            window.open(url, '_blank');
+
+            // إعادة تعيين النموذج
+            document.getElementById('tow-form').reset();
+        });
+    </script>
+</body>
+</html>

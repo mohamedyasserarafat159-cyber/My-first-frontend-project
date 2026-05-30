@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قطع الغيار - MECHANICO</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>مع MECHANICO مش هتعطل تانى</h1>
+    </header>
+    <main>
+        <section class="products">
+            <h2>قطع الغيار المتاحة</h2>
+            <div class="product-list">
+                <div class="product" data-id="1" data-name="فلتر زيت" data-price="50">
+                    <img src="فلتر زيت.png" alt="فلتر زيت" class="product-img">
+                    <h3>فلتر زيت</h3>
+                    <p>فلتر زيت لسيرات اسكوده </p>
+                    <p class="price">السعر: 150 جنيه</p>
+                    <button class="add-to-cart">أضف إلى السلة</button>
+                </div>
+                <div class="product" data-id="2" data-name="إطارات" data-price="300">
+                    <img src="اطار.png" alt="إطارات" class="product-img">
+                    <h3>إطارات</h3>
+                    <p>إطارات مقاومة للانزلاق.</p>
+                    <p class="price">السعر: 1000 جنيه</p>
+                    <button class="add-to-cart">أضف إلى السلة</button>
+                </div>
+                <div class="product" data-id="3" data-name="بطارية" data-price="200">
+                    <img src="بطاريه.png" alt="بطارية" class="product-img">
+                    <h3>بطارية</h3>
+                    <p>بطارية سيارة قوية وموثوقة.</p>
+                    <p class="price">السعر: 200 جنيه</p>
+                    <button class="add-to-cart">أضف إلى السلة</button>
+                </div>
+                <div class="product" data-id="4" data-name="فرامل" data-price="150">
+                    <img src="فرامل.png" alt="فرامل" class="product-img">
+                    <h3>فرامل</h3>
+                    <p>أقراص فرامل عالية الأداء.</p>
+                    <p class="price">السعر: 150 جنيه</p>
+                    <button class="add-to-cart">أضف إلى السلة</button>
+                </div>
+            </div>
+        </section>
+        <section class="cart">
+            <h2>سلة التسوق</h2>
+            <div id="cart-items"></div>
+            <p id="total">الإجمالي: 0 جنيه</p>
+            <button id="checkout">إتمام الشراء</button>
+        </section>
+    </main>
+    <script>
+        let cart = [];
+        const cartItems = document.getElementById('cart-items');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkout');
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.parentElement;
+                const id = product.dataset.id;
+                const name = product.dataset.name;
+                const price = parseInt(product.dataset.price);
+                addToCart(id, name, price);
+            });
+        });
+
+        function addToCart(id, name, price) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                const itemDiv = document.createElement('div');
+                itemDiv.innerHTML = `
+                    <p>${item.name} - ${item.price} جنيه x ${item.quantity} = ${item.price * item.quantity} جنيه</p>
+                    <button onclick="removeFromCart('${item.id}')">إزالة</button>
+                `;
+                cartItems.appendChild(itemDiv);
+            });
+            totalElement.textContent = `الإجمالي: ${total} جنيه`;
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+
+            // جهز رسالة الطلب
+            let message = "طلب شراء:%0";
+            cart.forEach(item => {
+                message += `${item.name} × ${item.quantity} = ${item.price * item.quantity} جنيه%0A`;
+            });
+            // استخدم encodeURIComponent لضمان ترميز صحيح
+            const encoded = encodeURIComponent(message);
+
+            // ضع رقمك مع كود الدولة  +
+            const phone = "201283624733";
+
+            const url = `https://wa.me/${phone}?text=${encoded}`;
+
+            // افتح رابط واتساب في تبويب جديد
+            window.open(url, '_blank');
+
+            // امسح السلة بعد الإرسال
+            cart = [];
+            updateCart();
+        });
+    </script>
+</body>
+</html>

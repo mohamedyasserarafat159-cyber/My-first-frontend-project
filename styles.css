@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+*{
+    font-family: "Ubuntu", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+
+}
+a{
+    color: white;
+        text-decoration: none;
+}
+html, body { height: 100%; }
+body{
+    background-image: linear-gradient(#01022db9 30%,rgba(255, 0, 0, 0.562)), url(img3.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-weight: 700;
+}
+
+body:hover{
+    background-image:
+   linear-gradient(transparent,#01022db9),
+    url(img3.png);
+}
+/*.logo {
+    
+     width: 300px; 
+  height: 300px;      
+  border-radius: 50%;
+  border: none;
+  display: block;
+  margin: 20px auto;
+  background-color: transparent;
+}*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+h1 {
+    color: rgba(0, 0, 255, 0.404);
+    font-size: 40px;
+    font-weight: 700;
+    font-size: 60px;
+}
+ul{
+    width: 60%;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 40px;
+}
+ul li a{
+    border-bottom-color: white;
+    font-size: 20px;
+    font-weight: bold;
+     font-size: 30px;
+}
+ul li a:hover{
+    border-bottom: 2px solid white;
+}
+.content {
+    color: white;
+    width: 60%;
+    margin-top: 50px;
+    left: 20%;
+    padding: 30px;
+    font-size: 30px;
+}
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: start;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    font-size: 20px;
+    border: none;
+    gap: 5px;
+}
+/* ضبط كروت المنتج داخل الشبكة */
+.product {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border: 10px double red;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0; /* الفجوة يحددها gap */
+    width: auto; /* إزالة العرض الثابت */
+    font-weight: bold;
+}
+
+/* تجاوبية: صفين على شاشات متوسطة وعمود واحد على الجوال */
+@media (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .product-list {
+        grid-template-columns: 1fr;
+    }
+}
+.cart {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border: 4px double red;
+    border-radius: 20px;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.cart h2 {
+    float: right;
+    margin: 0;
+}
+
+#cart-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    clear: both;
+}
+
+#cart-items p {
+    margin: 0;
+}
+
+#total {
+    margin: 10px 0;
+}
+
+#checkout {
+    font-size: 20px;
+    padding: 15px 30px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tow-service {
+    background-color: rgba(0, 0, 0, 0.719);
+    color:white;
+    padding: 20px;
+    border: 4px double red;
+    border-radius: 20px;
+    width: 80%;
+    margin: 20px auto;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.tow-service h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tow-service form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tow-service label {
+    font-weight: bold;
+}
+
+.tow-service input {
+    padding: 10px;
+    border: 2px solid red;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.tow-service button {
+    font-size: 20px;
+    padding: 15px 30px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.tow-service #get-location {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.toww a {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+.target {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+.text h2 {
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.evaluated-application {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    position: relative;
+    font-size: 18px; /* أكبر قليلاً من الافتراضي */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.evaluated-application::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+.evaluated-application h3 {
+    font-size: 24px; /* أكبر */
+    margin-bottom: 10px;
+}
+
+.evaluated-application p {
+    font-size: 18px; /* أكبر قليلاً */
+    margin: 5px 0;
+}
+
+.evaluated-application img {
+    max-width: 300px; /* أوضح وأكبر */
+    max-height: 300px;
+    display: block;
+    margin: 10px 0;
+    border-radius: 10px;
+}

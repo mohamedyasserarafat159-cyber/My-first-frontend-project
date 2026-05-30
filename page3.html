@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات الصيانه</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="toww">
+        <h1>خدمات الصيانه</h1>
+        <a href="tel:01283624733" class="emergency-button"><strong>فى حالة تأخر الرد اضغط هنا</strong></a>
+    </header>
+    <main>
+        <section class="tow-service">
+            <h2>خدمات الصيانه</h2>
+            <form action="#" method="post">
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="id">الرقم القومي:</label>
+                <input type="text" id="id" name="id" required>
+
+                <label for="location">الموقع:</label>
+                <input type="text" id="location" name="location" required>
+
+                <label for="photo">صورة العميل:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <label for="phone">رقم الهاتف:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <label for="vehicle-type">نوع المركبة</label>
+                <input id="vehicle-type" name="vehicle_type" required> 
+                </select>
+
+                <label for="payment">طريقة الدفع:</label>
+                <select id="payment" name="payment" required>
+                    <option value="">اختر طريقة الدفع</option>
+                    <option value="cash">نقدي</option>
+                    <option value="card">بطاقة ائتمان</option>
+                    <option value="bank">تحويل بنكي</option>
+                    <option value="vodafon cash">فودافون كاش</option>
+                </select>
+
+                <button type="submit">إرسال</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

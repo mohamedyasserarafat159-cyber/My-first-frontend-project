@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلبات التقييم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="text">
+        <h1>طلبات التقييم</h1>
+        <h2><b>للتواصل01283624733</b></h2>
+        <a href="page4.html">العودة لصفحة التقديم</a>
+    </header>
+    <main>
+        <section id="evaluated-list">
+            <!-- هنا ستظهر الطلبات المقيمة -->
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const list = document.getElementById('evaluated-list');
+            const evaluated = JSON.parse(localStorage.getItem('evaluatedApplications')) || [];
+
+            if (evaluated.length === 0) {
+                list.innerHTML = '<p>لا توجد طلبات مقيمة حتى الآن.</p>';
+                return;
+            }
+
+            evaluated.forEach(app => {
+                const div = document.createElement('div');
+                div.className = 'evaluated-application';
+                div.innerHTML = `
+                     <h3>الاسم: ${app.name}</h3>   
+                      <p><strong>العمر:</strong> ${app.age}</p>
+                    <p><strong>الخبرة:</strong> ${app.experience || '-'} </p>
+                    <p><strong>تاريخ التقييم:</strong> ${app.evaluatedAt || '-'} </p>
+                    ${app.photo ? `<img src="${app.photo}" alt="صورة الموظف" style="max-width:200px; max-height:200px; display:block; margin:8px 0;">` : ''}
+                    <button class="download-eval">تحميل نسخة</button>
+                `;
+                list.appendChild(div);
+
+                const dl = div.querySelector('.download-eval');
+                dl.addEventListener('click', function() {
+                    const dataStr = JSON.stringify(app, null, 2);
+                    const blob = new Blob([dataStr], {type: 'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `evaluated_${app.name || 'application'}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

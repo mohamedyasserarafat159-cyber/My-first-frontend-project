@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم طلب توظيف</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>تقديم طلب توظيف</h1>
+    <a href="page5.html" class="target">لرؤية الطلبات </a>
+</header>
+<main>
+    <section class="tow-service">
+        <h2>املأ البيانات التالية</h2>
+        <form action="page5.html" id="jobForm">
+            <label for="name">الاسم الكامل:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">البريد الإلكتروني:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="id">الرقم القومى:</label>
+            <input type="text" id="id" name="id" required>
+
+            <label for="phone">رقم الهاتف:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="age">العمر:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label  for="experience">الخبرة:</label>
+            <textarea id="experience" name="experience" rows="4" required></textarea>
+
+            <label for="photo">صورة الموظف:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <button type="submit">تقديم الطلب</button>
+</form>
+
+<script>
+document.getElementById("jobForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // منع الإرسال الطبيعي
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const id = document.getElementById("id").value;
+    const phone = document.getElementById("phone").value;
+    const age = document.getElementById("age").value;
+    const experience = document.getElementById("experience").value;
+    const photoInput = document.getElementById("photo").files[0];
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        const photoBase64 = reader.result;
+
+        const application = {
+            name,
+            email,
+            id,
+            phone,
+            age,
+            experience,
+            photo: photoBase64,
+            evaluatedAt: new Date().toLocaleString()
+        };
+
+        // تخزين البيانات في localStorage
+        const saved = JSON.parse(localStorage.getItem('evaluatedApplications')) || [];
+        saved.push(application);
+        localStorage.setItem('evaluatedApplications', JSON.stringify(saved));
+
+        // فتح واتساب مع رسالة جاهزة
+        const phoneNumber = "201234567890"; // ضع رقمك هنا بصيغة دولية
+        const message = 
+`📌 طلب توظيف جديد
+
+${application.name}
+ ${application.email}
+ ${application.id}
+ ${application.phone}
+ ${application.age}
+ ${application.experience}
+ ${application.evaluatedAt}`;
+
+        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`);
+
+        // إعادة تعيين الفورم بعد الإرسال
+        document.getElementById("jobForm").reset();
+    };
+
+    reader.readAsDataURL(photoInput);
+});
+</script>
+
+        </form>
+    </section>
+</main>
+
+  
